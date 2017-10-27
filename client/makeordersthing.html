@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户表单</title>
+	<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+	<link rel="stylesheet" href="style.css"> 
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<div style="width:350px;margin:300px auto;">
+        <form action="" class='form'>
+        	<div style="font-size: 30px;font-weight: bold;text-align: center;">jQuery验证表单</div>
+			<div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 32px;position: relative;">
+				<span class="glyphicon glyphicon-user" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
+				<input type="text" name="name" style="height:45px;border:0;width:297px;"  placeholder="姓名（必填中文）" maxlength="5">
+				<span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
+			</div>
+			<div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 32px;position: relative;">
+				<span class="glyphicon glyphicon-phone-alt" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
+				<input type="text" name="phone" style="height:45px;border:0;width:297px;" placeholder="手机（必填）" maxlength="11">
+				<span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
+			</div>
+			<div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 32px;position: relative;">
+				<span class="glyphicon glyphicon-home" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
+				<input type="text" name="qiye" style="height:45px;border:0;width:297px;" placeholder="地址（必填）">
+				<span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
+			</div>
+			<div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 32px;position: relative;">
+				<span class="glyphicon glyphicon-envelope" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
+				<input type="text" name="email" style="height:45px;border:0;width:297px;" placeholder="邮箱" >
+				<span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
+			</div>
+          	<input type="button" class="button" value="预约顾问咨询" style="padding: 10px 20px;border-radius: 5px;margin:30px auto 70px;">
+        </form>
+    </div>
+    <script>
+		var h=/^[\u4e00-\u9fa5]{0,}$/;
+		var d=/^1[3|4|5|8][0-9]\d{4,8}$/;
+		var y=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+		$("input").focus(function() {
+			$(this).prev().css("color","#008DE8");
+		});
+		$("[name='qiye']").blur(function() {
+			var v=$(this).val();
+			if (v=='') {
+				$("[name='qiye']").next().html("地址不能为空！");
+				$(this).prev().css("color","#f00");
+			}else{
+				$(this).prev().css("color","#0EA74A");
+				$("[name='qiye']").next().html("");
+			} 
+		});
+		$("[name='name']").blur(function() {
+			var v=$(this).val();
+			if (v=='') {
+				$("[name='name']").next().html("姓名不能为空！");
+				$(this).prev().css("color","#f00");
+			}else if(!v.match(h)){
+				$("[name='name']").next().html("姓名不合法！");
+				$("[name='name']").prev().css("color","#f00");
+			}else{
+				$(this).prev().css("color","#0EA74A");
+				$("[name='name']").next().html("");
+			} 
+		});
+		$("[name='phone']").blur(function() {ew
+			var v=$(this).val();
+			if (v=='') {
+				$("[name='phone']").next().html("手机号不能为空！");
+				$(this).prev().css("color","#f00");
+			}else if(!v.match(d)){
+				$("[name='phone']").next().html("手机号不正确！");
+				$("[name='phone']").prev().css("color","#f00");
+			}else{
+				$(this).prev().css("color","#0EA74A");
+				$("[name='phone']").next().html("");
+			} 
+		});
+		$("[name='email']").blur(function() {
+			var v=$(this).val();
+			if (v=='') {
+				$(this).prev().css("color","#999");
+			}else if(!v.match(y)){
+				$("[name='email']").next().html("请填写正确的邮箱！");
+				$("[name='email']").prev().css("color","#f00");
+			}else{
+				$(this).prev().css("color","#0EA74A");
+				$("[name='email']").next().html("");
+			} 
+		});
+
+		$('.button').click(function(){
+		var qiye=$("[name='qiye']").val();
+		var name=$("[name='name']").val();
+		var phone=$("[name='phone']").val();
+		var email=$("[name='email']").val();
+		if (name=="") {
+			$("[name='name']").next().html("姓名不能为空！");
+			return;
+		}else if(!name.match(h)){
+			$("[name='name']").next().html("姓名不合法！");
+			$("[name='name']").prev().css("color","#f00");
+			return;
+		}
+		if (phone=='') {
+			$("[name='phone']").next().html("手机号码不能为空！");
+			return;
+		}else if(!phone.match(d)){
+			$("[name='phone']").next().html("请填写正确的手机号！");
+			$("[name='phone']").prev().css("color","#f00");
+			return;
+		}
+		if (qiye=="") {
+			$("[name='qiye']").next().html("地址不能为空！");
+			return;
+		}
+		if (email!='' && !email.match(y)) {
+			$("[name='email']").next().html("请填写正确的邮箱！");
+			$("[name='email']").prev().css("color","#f00");
+			return;
+		}
+		// 提交成功后
+		$('input').val("");
+		$(".button").css('background','#0EA74A');
+		$(".button").css('color','#fff');
+		$(".button").css('border','none');
+		$(".button").attr("disabled", true);
+		$(".button").val("预约成功！请等待我们的回电");
+		$('input').prev().css("color","#999");
+		});
+	</script>
+</body>
+</html>
